@@ -1,5 +1,7 @@
 # ProspectDesk
 
+[Live app](https://prospectdesk-shobhit9742.vercel.app)
+
 A MERN application connecting company website research to individual mailbox conversations. Built as a standalone companion prototype for the Caprae assignment; it does not modify or integrate directly with SaaSquatch.
 
 ## Features
@@ -103,7 +105,7 @@ On Hobby, mailbox synchronization is manual using the existing Synchronize actio
 
 Locally the Vite development server proxies `/api` to Express. A production build is served by the same persistent Node service as the API; this is a container/server deployment rather than static-only or serverless hosting. MongoDB must retain its data volume.
 
-The included Dockerfile/Compose definition packages that topology. Before using it behind an HTTPS reverse proxy, set `APP_URL` and `API_URL` to the actual public origin, update OAuth callbacks, and retain the environment secrets. Use a persistent container host such as AWS ECS/EC2 and MongoDB Atlas, or a managed container service with a separate persistent MongoDB. No cloud provider has been configured or deployment performed. The Docker definition requires a Docker runtime and is not presented as a verified cloud release.
+The included standard Dockerfile/Compose definition packages that topology for persistent container hosts. Before using it behind an HTTPS reverse proxy, set `APP_URL` and `API_URL` to the actual public origin, update OAuth callbacks, and retain the environment secrets. MongoDB must run separately from Vercel; the Vercel Marketplace integration provisions MongoDB Atlas and supplies its connection through `MONGODB_URI`.
 
 ## Source packaging
 
