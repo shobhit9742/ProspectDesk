@@ -1,0 +1,20 @@
+services:
+  mongo:
+    image: mongo:8
+    volumes:
+      - prospectdesk-mongo:/data/db
+    restart: unless-stopped
+  app:
+    build: .
+    env_file: server/.env
+    environment:
+      NODE_ENV: production
+      MONGODB_URI: mongodb://mongo:27017/prospectdesk
+      HOST: 0.0.0.0
+    ports:
+      - "127.0.0.1:4120:4120"
+    depends_on:
+      - mongo
+    restart: unless-stopped
+volumes:
+  prospectdesk-mongo:
