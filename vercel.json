@@ -8,7 +8,7 @@
     "server": {
       "root": "server",
       "framework": "express",
-      "entrypoint": "index.ts"
+      "entrypoint": "index.cts"
     }
   },
   "rewrites": [
