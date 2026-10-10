@@ -17,7 +17,7 @@ const server = createApp().listen(
   () => console.log(`ProspectDesk API listening on port ${config.port}`),
 );
 let running = false;
-const worker = setInterval(
+const worker = process.env.SYNC_MODE === "manual" ? undefined : setInterval(
   async () => {
     if (running) return;
     running = true;
@@ -36,10 +36,10 @@ const worker = setInterval(
   },
   Math.max(60000, Number(process.env.SYNC_INTERVAL_MS) || 120000),
 );
-worker.unref();
+worker?.unref();
 for (const signal of ["SIGINT", "SIGTERM"])
   process.on(signal, () => {
-    clearInterval(worker);
+    if (worker) clearInterval(worker);
     server.close(async () => {
       await mongoose.disconnect();
       process.exit(0);

@@ -97,9 +97,9 @@ Test files and test configuration are temporarily stored outside this checkout. 
 
 ### Vercel
 
-`vercel.json` deploys the Vite frontend and Express API as services under one domain. Set `MONGODB_URI`, `SESSION_SECRET`, `CREDENTIAL_KEY`, `APP_URL`, and `API_URL` in the project's environment settings. Use the HTTPS application origin for both URL variables. Provider credentials remain optional; configure them and their callback URLs to enable the corresponding integrations.
+`vercel.json` deploys the frontend and API together using `Dockerfile.vercel` and Vercel's container runtime. Set `MONGODB_URI`, `SESSION_SECRET`, `CREDENTIAL_KEY`, `APP_URL`, `API_URL`, and `PORT=4120` in the project's environment settings. Use the HTTPS application origin for both URL variables. Provider credentials remain optional; configure them and their callback URLs to enable the corresponding integrations.
 
-The Vercel API entry point is `server/index.cts`. On Hobby, mailbox synchronization is manual using the existing Synchronize actions. The persistent Node entry point (`server/src/index.ts`) retains its periodic synchronization worker for local and container deployments.
+On Hobby, mailbox synchronization is manual using the existing Synchronize actions. `Dockerfile.vercel` sets `SYNC_MODE=manual`; the standard local and Docker entry point retains its periodic synchronization worker when that setting is absent.
 
 Locally the Vite development server proxies `/api` to Express. A production build is served by the same persistent Node service as the API; this is a container/server deployment rather than static-only or serverless hosting. MongoDB must retain its data volume.
 
